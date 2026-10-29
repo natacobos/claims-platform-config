@@ -31,7 +31,7 @@ You may use your usual tools, including an AI assistant. Please share your scree
 **Acceptance criteria**
 
 1. Each environment uses only its own database. The connection string comes from the Key Vault secret for that environment: `claims-db-connection-dev`, `claims-db-connection-stg` or `claims-db-connection-prd`.
-2. Production pods have enough memory for peak load: a memory request of 1536Mi and a limit of 2Gi.
+2. Production pods have enough memory for peak load, with room to spare, so they are never stopped for using too much memory.
 3. Deploying a new version causes no errors for members: old pods keep serving until new ones are ready.
 4. Production reserves CPU according to real use, so it doesn't pay for idle capacity and the autoscaler can add pods at peak. (The autoscaler adds pods when average CPU use goes over 70% of what each pod reserves.)
 5. Every container has a fixed image version, a readiness and a liveness check, and a memory limit. The CI check (`tools/check_manifests.py`) enforces this.
@@ -65,14 +65,6 @@ docker compose run --rm tools test           # run the CI check's tests
 ```
 
 The first run builds a small image (about 1 minute). Edit the files in your usual editor; the commands always use your latest changes. There is no cluster: everything is checked by building the configuration.
-
-To compare two environments, save each one and compare the files, for example:
-
-```bash
-docker compose run --rm tools render stg > stg.yaml
-docker compose run --rm tools render prd > prd.yaml
-diff stg.yaml prd.yaml
-```
 
 **Without Docker.** Install Python 3.12 and kustomize v5.4.3, then run:
 
