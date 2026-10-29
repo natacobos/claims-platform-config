@@ -1,0 +1,15 @@
+# Production needs more memory: peak use is about 1.4 GiB per pod.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: claims-api
+spec:
+  template:
+    spec:
+      containers:
+        - name: api
+          resources:
+            requests:
+              memory: 1536Mi
+            limits:
+              memory: 2Gi

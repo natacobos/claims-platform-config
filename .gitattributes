@@ -1,0 +1,2 @@
+# Keep Unix line endings everywhere, also when cloned on Windows (the scripts run inside a Linux container).
+* text=auto eol=lf

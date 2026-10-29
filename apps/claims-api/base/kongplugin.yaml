@@ -1,0 +1,10 @@
+# Kong checks the caller's sign-in token (OIDC, Entra ID) before a request reaches claims-api.
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: claims-api-oidc
+plugin: openid-connect
+config:
+  issuer: https://login.microsoftonline.com/example-tenant/v2.0
+  auth_methods:
+    - bearer

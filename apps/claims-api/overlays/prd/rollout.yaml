@@ -1,0 +1,8 @@
+# Faster deployments: replace all pods at once.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: claims-api
+spec:
+  strategy:
+    type: Recreate

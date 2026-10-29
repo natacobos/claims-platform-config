@@ -1,0 +1,14 @@
+name: validate
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check every environment
+        run: docker compose run --rm tools check
+      - name: Run the checker's tests
+        run: docker compose run --rm tools test

@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: claims-prd
+resources:
+  - ../../base
+patches:
+  - path: environment.yaml
+  - path: secret.yaml
+  - path: scaling.yaml
+  - path: rollout.yaml

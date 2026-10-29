@@ -1,0 +1,15 @@
+# Only the services listed here may call claims-api inside the cluster.
+apiVersion: kuma.io/v1alpha1
+kind: MeshTrafficPermission
+metadata:
+  name: claims-api-callers
+spec:
+  targetRef:
+    kind: MeshService
+    name: claims-api
+  from:
+    - targetRef:
+        kind: MeshService
+        name: claims-worker
+      default:
+        action: Allow
